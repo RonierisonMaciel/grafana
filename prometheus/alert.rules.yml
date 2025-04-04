@@ -1,0 +1,11 @@
+groups:
+  - name: example
+    rules:
+      - alert: HighRequestLatency
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[1m])) > 0.5
+        for: 10s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Alta latência detectada"
+          description: "Percentil 95 da latência está acima de 0.5 segundos"
